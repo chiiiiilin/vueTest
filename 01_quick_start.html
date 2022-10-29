@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>quick_start</title>
 </head>
 <body>
-    
+    <div id="app">
+        <!-- 雙花括弧是模板語言 -->
+        <!-- 作用域scope -->
+        <h2>{{count}}</h2>
+        <p>{{name}}{{favorite}}</p>
+        <p>boolean?1:0</p>
+        <div>{{talk ? '愛講話':'偏內向'}}</div>
+        <div>{{array}}</div>
+        <div>{{obj}}</div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        //console.log(Vue)
+        //新增一個應用application→建立Vue實體(instance)
+        Vue.createApp({
+            data(){
+                return{
+                    count: 1,
+                    name: 'chiii',
+                    favorite: ' ^ↀᴥↀ^',
+                    talk: false,
+                    array:[1,2,3],
+                    obj: {test:'123'}
+                }
+            }
+        }).mount('#app')  //，並掛載(mount)在網頁結點上(結點: id='app')
+    </script>
 </body>
 </html>
