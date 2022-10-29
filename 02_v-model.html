@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quick_start</title>
+</head>
+<body>
+    <div id="app">
+        <h1 data-mod="dark">{{title}}</h1>
+        <p>{{price}}元</p>
+        <div>
+            <button @click="reduceCount">-</button>
+            <input type="text" v-model.number="count">
+            <!-- <input type="number" v-model="count"> -->
+            <button @click="addCount">+</button>
+        </div>
+        <button>Add</button>
+        <p>總計:{{total}}元</p>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return{
+                    title: '一個商品',
+                    price: 100,
+                    count: 1,
+                }
+            },
+            methods:{
+                addCount(){
+                    // console.log(this.count);
+                    this.count += 1
+                    // this.total = this.count * this.price
+                    this.sumTotal()
+                },
+                reduceCount(){
+                    if(this.count <= 1) return
+                    this.count -= 1
+                    // this.total = this.count * this.price
+                    this.sumTotal()
+                },
+                sumTotal(){
+                    this.total = this.count * this.price
+                }
+            }
+        }).mount('#app')  //，並掛載(mount)在網頁結點上(結點: id='app')
+    </script>
+</body>
+</html>
