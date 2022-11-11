@@ -12,7 +12,7 @@
             {{num}}
         </button>
         <button>0</button>
-        {{keyin}}
+        <!-- {{keyin}} -->
         <button @click="reduce">-</button>
         <button @click="add">+</button>
         <button @click="calc">=</button>
@@ -28,8 +28,8 @@
             data(){
                 return{
                     step:'',
-                    keyin: 0,
-                    rusult: 0
+                    rusult: 0,
+                    arrNum: [],
                 }
             },
             methods:{

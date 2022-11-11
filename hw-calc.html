@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>綠色是原諒ㄉ顏色</title>
+    <style>
+        body{
+            background-color: #F6F1E8;
+        }
+        #app{
+            width: 300px;
+            height: 300px;
+            /* border: solid 1px black; */
+            position: absolute; 
+            top: 0;             
+            bottom: 0;           
+            left: 0;        
+            right: 0;
+            margin: auto; 
+        }
+        .wearebuttons{
+            display: flex;
+        }
+        .btn_wrapper{
+            width: 60%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .calc_wrapper{
+            width: 30%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        button{
+            border-radius: 10%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            color: white;
+            border: none;
+            margin: 5px;
+            background-color: #56BC80;
+        }
+        .calc_wrapper button{
+            background-color: #5BCD6D;
+        }
+        .backbtn{
+            width: 100%;
+            background-color: #5BCD6D;
+        }
+        .result{
+            width: 90%;
+            font-size: 36px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="result">{{result}}</div>
+        <div class="wearebuttons">
+            <div class="btn_wrapper">
+                <button v-for="num in 9" :key="num" @click="keyin(num)">{{num}}</button>
+                <button @click="keyin(0)">0</button>
+                <button @click="keyin('.')">.</button>
+                <button @click="clear">AC</button>
+                <button class="backbtn" @click="back">←----- ♡</button>
+            </div>
+            <div class="calc_wrapper">
+                <button @click="calc('/')">/</button>
+                <button @click="calc('+')">+</button>
+                <button @click="calc('-')">-</button>
+                <button @click="calc('*')">x</button>
+                <button @click="equel">=</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return { 
+                    result: 0,
+                    keyin:''
+                }
+            },
+            methods:{
+                keyin(num) {
+                    if (this.keyin === '0' && num === 0) return //如果keyin初始值為0則輸入number0不繼續下去
+                    this.keyin += num.toString() // 為了二位數以上數值輸入
+                },
+            },
+        }).mount("#app")
+
+       
+    </script>
+</body>
+</html>
