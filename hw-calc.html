@@ -83,14 +83,18 @@
             data(){
                 return { 
                     result: 0,
-                    keyin:''
+                    arrNum: []
                 }
             },
             methods:{
                 keyin(num) {
-                    if (this.keyin === '0' && num === 0) return //如果keyin初始值為0則輸入number0不繼續下去
-                    this.keyin += num.toString() // 為了二位數以上數值輸入
+                    if (this.result === '0') {
+                        this.result = ''
+                    }
+                    this.result += num
+                    // console.log(num)
                 },
+
             },
         }).mount("#app")
 
