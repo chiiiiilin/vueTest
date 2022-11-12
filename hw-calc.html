@@ -42,6 +42,7 @@
             border: none;
             margin: 5px;
             background-color: #56BC80;
+            cursor: pointer;
         }
         .calc_wrapper button{
             background-color: #5BCD6D;
@@ -59,21 +60,21 @@
 </head>
 <body>
     <div id="app">
-        <div class="result">{{result}}</div>
+        <div class="result">{{result || '0'}}</div>
         <div class="wearebuttons">
             <div class="btn_wrapper">
-                <button v-for="num in 9" :key="num" @click="keyin(num)">{{num}}</button>
-                <button @click="keyin(0)">0</button>
+                <button v-for="num in 9" :key="num" @click="append(num)">{{num}}</button>
+                <button @click="keyin=0">0</button>
                 <button @click="keyin('.')">.</button>
                 <button @click="clear">AC</button>
                 <button class="backbtn" @click="back">←----- ♡</button>
             </div>
             <div class="calc_wrapper">
-                <button @click="calc('/')">/</button>
-                <button @click="calc('+')">+</button>
-                <button @click="calc('-')">-</button>
-                <button @click="calc('*')">x</button>
-                <button @click="equel">=</button>
+                <button class="operator" @click="devide">/</button>
+                <button class="operator" @click="add">+</button>
+                <button class="operator" @click="reduce">-</button>
+                <button class="operator" @click="times">x</button>
+                <button class="operator" @click="equel">=</button>
             </div>
         </div>
     </div>
@@ -82,19 +83,61 @@
         Vue.createApp({
             data(){
                 return { 
-                    result: 0,
-                    arrNum: []
+                    result: '',
+                    // previous: null,
+                    operator: null, 
+                    operatorClicked: false,
                 }
             },
             methods:{
-                keyin(num) {
-                    if (this.result === '0') {
+                append(num) {
+                    if (this.operatorClicked) {
                         this.result = ''
+                        this.operatorClicked = false
                     }
-                    this.result += num
-                    // console.log(num)
+                    this.result = `${this.result}${num}`
                 },
-
+                setPrevious(){
+                    this.previous = this.result
+                    this.operatorClicked = true
+                },
+                add(){
+                    this.operator = (a,b) => (a+b)
+                    this.setPrevious()
+                },
+                reduce(){
+                    this.operator = (a,b) => (a-b)
+                    this.setPrevious()
+                },
+                devide(){
+                    this.operator = (a,b) => (a/b)
+                    this.setPrevious()
+                },
+                times(){
+                    this.operator = (a,b) => (a*b)
+                    this.setPrevious()
+                },
+                clear(){
+                    this.result = ''
+                },
+                equel(){
+                    this.result = `${this.operator (parseFloat(this.result), parseFloat(this.previous))}`
+                    this.previous = null
+                },
+                back(){
+                    let arr = this.result.split('')
+                    let dot = arr.pop()
+                    this.result = arr.join('')
+                    if (!arr.length) {
+                        this.result = '0'
+                    }
+                    if (dot === '.') {
+                        this.isKeyDot = false
+                    }
+                    if (this.isSolved) {
+                        this.result = '0'
+                    }
+                },
             },
         }).mount("#app")
 
