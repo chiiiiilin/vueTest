@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quick_start</title>
+    <style>
+        section{
+            height: 100vh;
+            font-size: 80vh;
+        }
+        #section1{
+            background-color: #333;
+        }
+        #section2{
+            background-color: #999;
+        }
+        #section3{
+            background-color: #666;
+        }
+        button{
+            height: 200px;
+            width: 100px;
+            font-size: 50px;
+            background-color: rgb(230, 225, 225);
+            outline: none;
+            border: none;
+        }
+        .blockBtnBox{
+            color: rgb(222, 220, 220);
+            writing-mode: vertical-lr;
+            position: fixed;
+            left: 20px;
+            top: 50%;
+        }
+        .blockBtnBox button{
+            font-size: 20px;
+            height: 30px;
+            width: 30px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <section id="section1" ref="section1">1
+            <button @click="scrollDown">下下</button>
+       </section>
+       <section id="section2" ref="section2">2</section>
+       <section id="section3">3
+        <button @click="scrollTo" ref="section3">上上</button>
+       </section>
+       <div class="blockBtnBox">
+            <button v-for="item in 3" @click="scrollBlock(item)">{{item}}</button>
+       </div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        //console.log(Vue)
+        //新增一個應用application→建立Vue實體(instance)
+        Vue.createApp({
+            data(){
+                return{
+                  
+                }
+            },
+            methods:{
+                scrollTo(){
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    })
+                },
+                scrollDown(){
+                    // const box = document.getElementById('section2')
+                    // console.log(this.$refs);
+                    const box = this.$refs.section2
+                    // console.log(box.getBoundingClientRect())
+                    window.scrollTo({
+                        top: box.offsetTop,
+                        behavior: 'smooth'
+                    })
+                },
+                scrollBlock(block){
+                    console.log(block);
+                    const box = this.$refs[`section${block}`]
+                    window.scrollTo({
+                        top: box.offsetTop,
+                        behavior: 'smooth'
+                    })
+                }
+            },
+        }).mount('#app')  //，並掛載(mount)在網頁結點上(結點: id='app')
+    </script>
+</body>
+</html>
