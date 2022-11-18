@@ -121,7 +121,7 @@
                     this.result = ''
                 },
                 equel(){
-                    this.result = `${this.operator (parseFloat(this.result), parseFloat(this.previous))}`
+                    this.result = `${this.operator (parseFloat(this.previous), parseFloat(this.result))}`
                     this.previous = null
                 },
                 back(){
